@@ -1,0 +1,108 @@
+<?php
+
+/**
+ * @file
+ * Enhanced control over the Background Color of any Block.
+ *
+ * Block Background Color allows users to set background color to
+ * any block through the block's configuration interface.
+ */
+
+ /**
+  * Implements hook_permission().
+  */
+ function block_background_color_permission() {
+   return array(
+     'administer block background color' => array(
+       'title' => t('Administer block background color'),
+       'description' => t('Set background color for blocks.'),
+     ),
+   );
+ }
+
+/**
+* Implements theme_preprocess_block().
+*
+* Extend block's background color with any user defined Bg color.
+*/
+function block_background_color_preprocess_block(&$vars) {
+  $block = $vars['block'];
+  $block_id = $block->delta;
+  $block_delta = $block->module . '-' . $block->delta;
+  $bbc_data = variable_get('block_background_color', array());
+  if (!empty($bbc_data) && isset($bbc_data[$block_id])) {
+    $color = $bbc_data[$block_id];
+    if (is_numeric($block_id)) {
+      drupal_add_css('#block-block-' . $block_id . '{ background-color:' . $color . '!important; }', 'inline');
+    }
+    // If it is a core block or views block.
+    else {
+      drupal_add_css('#block-' . $block_delta . ' { background-color:' . $color . '!important; }', 'inline');
+    }
+  }
+}
+
+/**
+* Implements hook_form_alter().
+*
+* Alter block edit form to add configuration field.
+*/
+function block_background_color_form_alter(&$form, &$form_state, $form_id) {
+  if (user_access('administer block background') && ($form_id == 'block_admin_configure' || $form_id == 'block_add_block_form')) {
+    $block = block_load($form['module']['#value'], $form['delta']['#value']);
+    $bbc_data = variable_get('block_background_color', array());
+    $bbc = isset($bbc_data[$block->delta]) ? $bbc_data[$block->delta] : '';
+    $form['settings']['block_background_color'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Choose Background Color'),
+      '#default_value' => !empty($bbc) ? $bbc : '',
+      '#attributes' => array(
+        'class' => array('basic-color-palette'),
+      ),
+      // Includes Colorpicker scripts - http://bgrins.github.io/spectrum/
+      '#attached' => array(
+        'js' => array(
+          drupal_get_path('module', 'block_background_color') . '/js/spectrum.js' => array(
+            'type' => 'file',
+            'scope' => 'header'
+          ),
+          drupal_get_path('module', 'block_background_color') . '/js/basic-color-palette.js' => array(
+            'type' => 'file',
+            'scope' => 'footer'
+          ),
+        ),
+        'css' => array(
+          drupal_get_path('module', 'block_background_color') . '/css/spectrum.css' => array(
+            'type' => 'file',
+            'scope' => 'header'
+          ),
+        ),
+      ),
+    );
+    $form['#submit'][] = 'block_background_color_form_submit';
+  }
+}
+
+/**
+* Helper function: additional submit callback for block configuration pages.
+*
+* Save supplied hex color value.
+*/
+function block_background_color_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+  if ($form_state['values']['form_id'] == 'block_admin_configure' || $form_state['values']['form_id'] == 'block_add_block_form') {
+  // Only save if value has changed.
+    if (isset($form_state['values']['block_background_color'])) {
+      $block_delta = $values['delta'];
+      $color = $values['block_background_color'];
+      $bbc_data = variable_get('block_background_color', array());
+      if (!empty($color)) {
+        $bbc_data[$block_delta] = $color;
+      }
+      elseif (isset($bbc_data[$block_delta])){
+        unset($bbc_data[$block_delta]);
+      }
+      variable_set('block_background_color',$bbc_data);
+    }
+  }
+}

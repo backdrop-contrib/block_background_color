@@ -1,0 +1,5 @@
+name = Block Background Color
+description = "Changes the background color of a block."
+package = Media
+core = 7.x
+dependencies[] = block

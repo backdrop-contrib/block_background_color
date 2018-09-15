@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Any code that has to be run when the module is installed and uninstalled.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function block_background_color_uninstall() {
+  // Delete variables.
+  $variables = array(
+    'block_background_color',
+  );
+  foreach ($variables as $key => $value) {
+    variable_del($value);
+  }
+}
