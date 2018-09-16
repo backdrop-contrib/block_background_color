@@ -8,17 +8,17 @@
  * any block through the block's configuration interface.
  */
 
- /**
-  * Implements hook_permission().
-  */
- function block_background_color_permission() {
-   return array(
-     'administer block background color' => array(
-       'title' => t('Administer block background color'),
-       'description' => t('Set background color for blocks.'),
-     ),
-   );
- }
+/**
+* Implements hook_permission().
+*/
+function block_background_color_permission() {
+  return array(
+    'administer block background color' => array(
+      'title' => t('Administer block background color'),
+      'description' => t('Set background color for blocks.'),
+   ),
+ );
+}
 
 /**
 * Implements theme_preprocess_block().
