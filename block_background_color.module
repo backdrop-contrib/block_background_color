@@ -28,7 +28,7 @@ function block_background_color_permission() {
 function block_background_color_preprocess_block(&$vars) {
   $block = $vars['block'];
   $block_id = $block->delta;
-  $block_delta = $block->module . '-' . $block->delta;
+  $block_delta = str_replace('_', '-', $block->module . '-' . $block->delta);
   $bbc_data = variable_get('block_background_color', array());
   if (!empty($bbc_data) && isset($bbc_data[$block_id])) {
     $color = $bbc_data[$block_id];
