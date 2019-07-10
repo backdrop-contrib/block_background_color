@@ -1,5 +1,8 @@
+type = module
 name = Block Background Color
 description = "Changes the background color of a block."
 package = Media
-core = 7.x
+version = VERSION
+backdrop = 1.x
+stylesheets[all][] = css/spectrum.css
 dependencies[] = block
