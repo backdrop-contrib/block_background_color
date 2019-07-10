@@ -21,7 +21,7 @@ MAINTAINERS
 
 - Tim Erickson (https://github.com/stpaultim)
 
-Ported to Backdrop by:
+Attempt at porting to Backdrop by:
 
 - Tim Erickson <https://github.com/stpaultim>
 
