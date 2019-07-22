@@ -36,6 +36,7 @@ Installation
  https://www.drupal.org/project/block_background_color
  
  Huge thanks to Nitheesh Chandrika for replying to my request for help with the port!
+ https://www.drupal.org/u/nitheesh
 
  License
  -------
