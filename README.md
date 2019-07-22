@@ -1,5 +1,5 @@
 BLOCK BACKGROUND COLOR
-----------------------
+======================
 
 Block Background Module will help to set a custom background color to the 
 blocks. The user can choose the color using a color picker field for each 
@@ -32,11 +32,11 @@ Installation
  Credits
  -------
 
- Initial Drupal development by Nitheesh Chandrika (nitheesh)
- https://www.drupal.org/project/block_background_color
+ - Initial Drupal development by Nitheesh Chandrika (nitheesh)
+   https://www.drupal.org/project/block_background_color
  
- Huge thanks to Nitheesh Chandrika for replying to my request for help with the port!
- https://www.drupal.org/u/nitheesh
+ - Huge thanks to Nitheesh Chandrika for replying to my request for help with the port!
+   https://www.drupal.org/u/nitheesh
 
  License
  -------
