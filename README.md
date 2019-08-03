@@ -27,7 +27,7 @@ Installation
  -------------------
 
  - Tim Erickson (https://github.com/stpaultim)
- - Openings available....
+ - Nitheesh Chandrika (https://github.com/nitheesh)
 
  Credits
  -------
