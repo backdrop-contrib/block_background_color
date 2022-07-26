@@ -5,6 +5,13 @@ Block Background Module will help to set a custom background color to the
 blocks. The user can choose the color using a color picker field for each 
 block in the block configuration page.
 
+Alternative Modules
+-------------------
+
+We alse recommend looking at the [Configurable Block Styles](https://backdropcms.org/project/configurable_block_style) 
+module which also allows you to set the background color for blocks, but 
+provides additional block configuration settings as well. 
+
 Installation
 ------------
 
