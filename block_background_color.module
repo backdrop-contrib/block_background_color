@@ -9,27 +9,38 @@
  */
 
 /**
-* Implements hook_permission().
-*/
+ * Implements hook_permission().
+ */
 function block_background_color_permission() {
   return array(
     'administer block background color' => array(
       'title' => t('Administer block background color'),
       'description' => t('Set background color for blocks.'),
-   ),
- );
+    ),
+  );
 }
 
 /**
-* Implements theme_preprocess_block().
-*
-* Extend block's background color with any user defined Bg color.
-*/
-function block_background_color_preprocess_block(&$vars) {
-  $block = $vars['block'];
+ * Implements hook_config_info().
+ */
+function block_background_color_config_info() {
+  $prefixes['block_background_color.settings'] = array(
+    'label' => t('Block Background Color settings'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
+/**
+ * Implements theme_preprocess_block().
+ *
+ * Extend block's background color with any user defined Bg color.
+ */
+function block_background_color_preprocess_block(&$variables) {
+  $block = $variables['block'];
   $block_id = str_replace('-', '_', $block->module . '_' . $block->delta);
   $block_delta = str_replace('_', '-', $block_id);
-  $bbc_data = variable_get('block_background_color', array());
+  $bbc_data = config_get('block_background_color.settings', 'block_background_color');
   if (!empty($bbc_data) && isset($bbc_data[$block_id])) {
     $color = $bbc_data[$block_id];
     backdrop_add_css('.block-' . $block_delta . ' { background-color:' . $color . '!important; }', array('type'=>'inline'));
@@ -37,16 +48,19 @@ function block_background_color_preprocess_block(&$vars) {
 }
 
 /**
-* Implements hook_form_alter().
-*
-* Alter block edit form to add configuration field.
-*/
+ * Implements hook_form_alter().
+ *
+ * Alter block edit form to add configuration field.
+ */
 function block_background_color_form_alter(&$form, &$form_state, $form_id) {
   if (user_access('administer block background') && ($form_id == 'layout_block_configure_form')) {
-    if (isset($form_state['block']) && !empty($form_state['block']->delta)) {
-      $block_delta = $form_state['block']->module . '_' .$form_state['block']->delta;
-    }
-    $bbc_data = variable_get('block_background_color', array());
+
+
+    $block = $form_state['block'];
+    $block_delta =  $block->module .'_'. $form_state['block']->delta;
+    $block_delta = str_replace('-', '_', $block_delta);
+
+    $bbc_data = config_get('block_background_color.settings', 'block_background_color');
     $bbc = isset($bbc_data[$block_delta]) ? $bbc_data[$block_delta] : '';
     $form['block_background_color'] = array(
       '#type' => 'textfield',
@@ -80,27 +94,27 @@ function block_background_color_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
-* Helper function: additional submit callback for block configuration pages.
-*
-* Save supplied hex color value.
-*/
+ * Helper function: additional submit callback for block configuration pages.
+ *
+ * Save supplied hex color value.
+ */
 function block_background_color_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   if ($form_state['values']['form_id'] == 'layout_block_configure_form') {
-  // Only save if value has changed.
+    // Only save if value has changed.
     if (isset($form_state['values']['block_background_color'])) {
       $block = $form_state['block'];
       $block_delta =  $block->module .'_'. $form_state['block']->delta;
       $block_delta = str_replace('-', '_', $block_delta);
       $color = $values['block_background_color'];
-      $bbc_data = variable_get('block_background_color', array());
+      $bbc_data = config_get('block_background_color.settings', 'block_background_color');
       if (!empty($color)) {
         $bbc_data[$block_delta] = $color;
       }
       elseif (isset($bbc_data[$block_delta])){
         unset($bbc_data[$block_delta]);
       }
-      variable_set('block_background_color',$bbc_data);
+      config_set('block_background_color.settings', 'block_background_color', $bbc_data);
     }
   }
 }

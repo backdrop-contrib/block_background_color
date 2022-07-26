@@ -14,6 +14,25 @@ function block_background_color_uninstall() {
     'block_background_color',
   );
   foreach ($variables as $key => $value) {
+    // TODO This variable was probably removed in Backdrop without replacement.
     variable_del($value);
   }
+}
+
+/**
+ * Migrate block_background_color variables to config.
+ */
+function block_background_color_update_1000() {
+  $config = config('block_background_color.settings');
+  $config->set('block_background_color', update_variable_get('block_background_color', array()));
+  $config->save();
+
+  update_variable_del('block_background_color');
+}
+
+/**
+ * Implements hook_install().
+ */
+function block_background_color_install() {
+  // Dynamically generated variable data was detected.
 }

@@ -1,6 +1,6 @@
 (function ($) {
 
-Backdrop.behaviors.bbc = {
+Backdrop.behaviors.block_background_color = {
   attach: function (context, settings) {
     $(".basic-color-palette").spectrum(
       {
