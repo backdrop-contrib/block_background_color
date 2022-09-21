@@ -63,31 +63,9 @@ function block_background_color_form_alter(&$form, &$form_state, $form_id) {
     $bbc_data = config_get('block_background_color.settings', 'block_background_color');
     $bbc = isset($bbc_data[$block_delta]) ? $bbc_data[$block_delta] : '';
     $form['block_background_color'] = array(
-      '#type' => 'textfield',
+      '#type' => 'color',
       '#title' => t('Background Color'),
       '#default_value' => !empty($bbc) ? $bbc : '',
-      '#attributes' => array(
-        'class' => array('basic-color-palette'),
-      ),
-      // Includes Colorpicker scripts - http://bgrins.github.io/spectrum/
-      '#attached' => array(
-        'js' => array(
-          backdrop_get_path('module', 'block_background_color') . '/js/spectrum.js' => array(
-            'type' => 'file',
-            'scope' => 'header'
-          ),
-          backdrop_get_path('module', 'block_background_color') . '/js/basic-color-palette.js' => array(
-            'type' => 'file',
-            'scope' => 'header'
-          ),
-        ),
-        'css' => array(
-          backdrop_get_path('module', 'block_background_color') . '/css/spectrum.css' => array(
-            'type' => 'file',
-            'scope' => 'footer'
-          ),
-        ),
-      ),
     );
     $form['#submit'][] = 'block_background_color_form_submit';
   }
