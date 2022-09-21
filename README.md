@@ -1,14 +1,14 @@
-BLOCK BACKGROUND COLOR
+Block Background Color
 ======================
 
-Block Background Module will help to set a custom background color to the 
+Block Background Color will help to set a custom background color to the 
 blocks. The user can choose the color using a color picker field for each 
 block in the block configuration page.
 
 Alternative Modules
 -------------------
 
-We alse recommend looking at the [Configurable Block Styles](https://backdropcms.org/project/configurable_block_style) 
+We also recommend looking at the [Configurable Block Styles](https://backdropcms.org/project/configurable_block_style) 
 module which also allows you to set the background color for blocks, but 
 provides additional block configuration settings as well. 
 
@@ -18,11 +18,12 @@ Installation
  - Install this module using the official Backdrop CMS instructions at
    https://backdropcms.org/guide/modules.
    
- Documentation
- -------------
+Usage
+-------------
 
- Additional documentation is (or will be) located in the Wiki:
- https://github.com/backdrop-contrib/block_background_color/wiki/Documentation.
+- Access the "Configure Block" dialog
+- Click on the color picker under "Background Color"
+- Select the color using RGB, HEX, HSL, the paletter, or the color picker
 
  Issues
  ------
