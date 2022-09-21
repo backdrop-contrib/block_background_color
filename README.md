@@ -23,7 +23,7 @@ Usage
 
 - Access the "Configure Block" dialog
 - Click on the color picker under "Background Color"
-- Select the color using RGB, HEX, HSL, the paletter, or the color picker
+- Select the color using RGB, HEX, HSL, the palette, or the color picker
 
  Issues
  ------
